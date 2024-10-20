@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech2Globe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .line {
+            width: 100%;
+            height: 2px;
+            background-color: black;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .cart {
+            display: none;
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 90%;
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 0;
+        }
+
+        .cart-item {
+            margin-bottom: 10px;
+        }
+
+        .open .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .open .line2 {
+            opacity: 0;
+        }
+
+        .open .line3 {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        @media (min-width: 600px) {
+            .cart {
+                top: 70px;
+                right: 30px;
+            }
+        }
+
+        .background {
+            height: 100%;
+            width: 100%;
+            background-image: url(https://images.unsplash.com/photo-1543269664-7eef42226a21?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+            /* filter: brightness(0.5); */
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: scroll;
+            border-bottom-right-radius: 460px;
+        }
+
+        @media (max-width: 768px) {
+            .background {
+                background-position: top center;
+                background-size: contain;
+            }
+        }
+
+        .navComponent {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+        }
+
+        /* .letter h1{
+             font-size: calc(12px + (24 - 12) * ((100vw - 300px) / (1600 - 300))); 
+         } */
+
+
+        /* .marron-hr {
+            width: 100px;
+            border: 0;
+            background: #800000;
+        } */
+
+
+        /* .shadow1:hover{
+            background-color: azure;
+            padding: 8px;
+            border-radius: 25px;
+            border: 2px solid maroon;
+         } */
+        .bg1 {
+            height: 100%;
+            width: 100%;
+            background-image: url(https://media.istockphoto.com/id/1252703521/photo/unrecognizable-colleagues-holding-hands-standing-together-in-office-top-view.jpg?s=612x612&w=0&k=20&c=ZNrsmUGEufHu_VTwdFQ_WyBSCgpQQ3v9TX02UAE13Cs=);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: scroll;
+            filter: brightness(0.7);
+        }
+
+        .bg2 {
+            height: 200px;
+            width: 100%;
+            background-image: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQomvHxF8tzySMz6qMwsPe_8f4FSFd2Sav9uBJwL8I3FX8xi6Ba);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: scroll;
+            filter: brightness(0.8);
+            border-top-right-radius: 100px;
+            border-bottom-right-radius: 100px;
+            border-top-left-radius: 100px;
+            border-bottom-left-radius: 100px;
+        }
+
+        .image-style {
+            border: 1px solid rgb(236, 236, 236);
+            padding: 18px;
+        }
+
+        .bgComponents {
+            height: 100%;
+            width: 100%;
+            background-image: url(https://images.unsplash.com/photo-1719255416533-952910e38824?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDc4fGFldTZyTC1qNmV3fHxlbnwwfHx8fHw%3D);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: scroll;
+            background-attachment: fixed;
+        }
+
+        .footer-container {
+            background-color: rgb(2, 2, 54);
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .col-md-2,
+        .col-md-6 {
+            padding: 15px;
+        }
+
+        .col-md-2 {
+            flex: 0 0 16.6667%;
+            max-width: 16.6667%;
+        }
+
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        @media (max-width: 768px) {
+
+            .col-md-2,
+            .col-md-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 25px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 5px;
+            width: 400px;
+            max-width: 100%;
+        }
+
+        .message-input {
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 20px;
+            flex-grow: 1;
+            font-size: 16px;
+        }
+
+        .send-button {
+            background-color: #007bff;
+            border: none;
+            outline: none;
+            color: #fff;
+            border-radius: 50%;
+            padding: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .send-button:hover {
+            background-color: #0056b3;
+        }
+
+        .send-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .fab {
+            font-size: 30px;
+            color: red;
+            text-decoration: none;
+        }
+
+        .fab:hover {
+            color: white;
+        }
+        .hov1:hover{
+            color: maroon;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar  -->
+    <nav class="navComponent navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-md">
+            <img src="https://www.tech2globe.com/images/new-page-images/tech2globe-logo.png" class="img-fluid" alt="..."
+                width="200px">
+            <div>
+                <div class="hamburger" id="hamburger" onclick="toggleCart()">
+                    <div class="line line1"></div>
+                    <div class="line line2"></div>
+                    <div class="line line3"></div>
+                </div>
+                <div>
+                    <div class="cart" id="cart">
+                        <div class="cart-item">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLTRezubNZpr9fPrM2siktruHWglsFyxbVuv-9G5gQ2lDvSxWd"
+                                class="img-fluid" alt="">
+                        </div>
+                        <div class="cart-item">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                                <div class="container-fluid">
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                        <div class="navbar-nav">
+                                            <a class="nav-link active" aria-current="page" href="#">About</a>
+                                            <a class="nav-link" href="#">Services</a>
+                                            <a class="nav-link" href="#">Technologies</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+                            <div>
+                                <div class="accordion" id="accordionPanelsStayOpenExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                                aria-controls="panelsStayOpen-collapseOne">
+                                                About Tech2Globe
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
+                                            aria-labelledby="panelsStayOpen-headingOne">
+                                            <div class="accordion-body">
+                                                <p>Infrastructure</p>
+                                                <p> Our Values</p>
+                                                <p> Associations Ascription</p>
+                                                <p>Clients</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
+                                                aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                                Resources
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                                            aria-labelledby="panelsStayOpen-headingTwo">
+                                            <div class="accordion-body">
+                                                <p> FAQ</p>
+                                                <p>Testimonials</p>
+                                                <p> Case Studies</p>
+                                                <p> Portfolio</p>
+                                                <p> Blogs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-item">
+                            <button type="button" class="btn btn-danger">GET A PROPOSAL</button>
+                            <br>
+                            <br>
+                            <p><img src="https://www.tech2globe.com/images/new-page-images/svgs/bharat-flag-icon.svg"
+                                    alt="" height="15px" width="60px">+91-9899675039</p>
+                            <p><img src="https://www.tech2globe.com/images/new-page-images/svgs/canada-flag-icon.svg"
+                                    alt="" height="15px" width="60px">+1-778-382-9628</p>
+                            <p><img src="https://www.tech2globe.com/images/new-page-images/svgs/united-state-flag-icon.svg"
+                                    alt="" height="15px" width="60px">+1-516-858-4836</p>
+                            <p><img src="https://www.tech2globe.com/images/new-page-images/svgs/united-state-flag-icon.svg"
+                                    alt="" height="15px" width="60px">+1-516-858-5840</p>
+                        </div>
+                    </div>
+
+                    <script>
+                        function toggleCart() {
+                            const cart = document.getElementById('cart');
+                            const hamburger = document.getElementById('hamburger');
+                            if (cart.style.display === 'none' || cart.style.display === '') {
+                                cart.style.display = 'block';
+                                hamburger.classList.add('open');
+                            } else {
+                                cart.style.display = 'none';
+                                hamburger.classList.remove('open');
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+    </nav>
+
+
+    <!-- First Components -->
+
+    <div class="background">
+        <div class="letter text-light">
+            <br><br><br><br><br>
+            <br>
+            <br>
+            <br><br>
+            <h1 class="pt-5 mx-5"
+                style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                Tech2Globe Services Are Geared To Deliver</h1>
+            <h1 class="mx-5"
+                style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                Results That You Expect From Consulting Partner.</h1>
+            <button
+                style="margin-bottom: 200px; width: 150px; height: 50px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"
+                type="button" class="btn btn-outline-danger mx-5">Contact Us</button>
+        </div>
+    </div>
+
+
+    <!-- Second Components carts -->
+
+    <div class="container">
+        <div data-aos="fade-down">
+            <div class="row mt-5 ">
+                <div class="shadow1 col-md-4">
+                    <div class=" mb-3" style="max-width: 540px;">
+                        <div class="row ">
+                            <div class="col-md-3">
+                                <img src="https://www.tech2globe.com/images/new-page-images/icons/growth.png"
+                                    class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-9">
+                                <div
+                                    style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                                    <h5 class="card-title">Digital Transformation</h5>
+                                    <p class="card-text">From planning online setup to reaching your target market.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shadow1 col-md-4">
+                    <div class=" mb-3" style="max-width: 540px;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="https://www.tech2globe.com/images/new-page-images/icons/planning.png"
+                                    class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-9">
+                                <div
+                                    style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                                    <h5 class="card-title">Consulting Prowess</h5>
+                                    <p class="card-text">Aligning your costs with goals to target growth. effective
+                                        business.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shadow1 col-md-4">
+                    <div class=" mb-3" style="max-width: 540px;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="https://www.tech2globe.com/images/new-page-images/icons/international.png"
+                                    class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-9">
+                                <div
+                                    style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                                    <h5 class="card-title">Global Data Support</h5>
+                                    <p class="card-text">Leveraging data capabilities for effective business operations.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Third components  -->
+
+    <div class="container">
+        <div class="row mt-5 my-5 pt-5">
+            <div class="col-md-6">
+                <div data-aos="zoom-in-down">
+                    <div
+                        style="display: flex;color: maroon; gap: 20px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        <hr style="height: 5px; width: 100px;">
+                        <h3>About Us</h3>
+                    </div>
+
+                    <h2 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Tech2Globe Your
+                        IT
+                        Consulting Partner</h2>
+                    <p
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        Tech2Globe is an IT solutions and consultancy firm that assists visionaries in being industry
+                        changemakers and defining business future. We collaborate as one team with our clients with the
+                        common goal of achieving amazing achievements, outperforming the competition, and redefining
+                        industries. To offer better, faster, and more enduring results, we combine our specialized,
+                        integrated knowledge with our services. With over 14 years of experience in various industry
+                        verticals, we uncover new sources to add value to your business.</p>
+                    <div style="display: flex; gap: 110px;">
+                        <div>
+                            <h1
+                                style="color: maroon;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                                7
+                                k+</h1>
+                            <h6 style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                Successful
+                                Projects</h6>
+                        </div>
+                        <div>
+                            <h1
+                                style="color: maroon;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                                300 +</h1>
+                            <h6 style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Our
+                                Strength</h6>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 40px;">
+                        <div>
+                            <h1
+                                style="color: maroon;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                                95 %</h1>
+                            <h6 style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                Customer
+                                Satisfaction Score</h6>
+                        </div>
+                        <div>
+                            <h1
+                                style="color: maroon;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                                25 +</h1>
+                            <h6 style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                Customer
+                                Based Countries</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div data-aos="zoom-out">
+                    <img src="https://www.tech2globe.com/image/banner-about-h-4.webp" class="img-fluid" alt="...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Four Components  -->
+    <div class="bg1">
+        <div class="container my-5">
+            <div data-aos="fade-up">
+                <div class="row" style="justify-content: space-between; margin-left: 70px;">
+                    <div class="col-md-3 mt-5 mb-5">
+                        <div style="width: 9rem;">
+                            <img style="background-color: maroon;; border-radius: 200px;"
+                                src="https://www.tech2globe.com/images/new-page-image/expertise.webp "
+                                class="card-img-top" alt="...">
+                            <div class="text-center mt-4">
+                                <h5 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"
+                                    class="card-title">Expertise</h5>
+                                <p style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"
+                                    class="card-text">Delivering the best of us every day</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3  mt-5 mb-5">
+                        <div style="width: 9rem;">
+                            <img style="background-color: maroon;border-radius: 200px;"
+                                src="https://www.tech2globe.com/images/new-page-image/team.webp" class="card-img-top"
+                                alt="...">
+                            <div class="text-center mt-4">
+                                <h5 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"
+                                    class="card-title">Team</h5>
+                                <p style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"
+                                    class="card-text">300+ working professionals</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3  mt-5 mb-5">
+                        <div style="width: 9rem;">
+                            <img style="background-color: maroon;border-radius: 200px;"
+                                src="https://www.tech2globe.com/images/new-page-image/flexiblity.webp"
+                                class="card-img-top" alt="...">
+                            <div class="text-center mt-4">
+                                <h5 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"
+                                    class="card-title">Flexibility</h5>
+                                <p style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"
+                                    class="card-text">Balancing time and resources to make</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3  mt-5 mb-5">
+                        <div style="width: 9rem;">
+                            <img style="background-color: maroon;border-radius: 200px;"
+                                src="https://www.tech2globe.com/images/new-page-image/enthusiasm.webp"
+                                class="card-img-top" alt="...">
+                            <div class="text-center mt-4 text-white">
+                                <h5 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"
+                                    class="card-title">Enthusiasm</h5>
+                                <p style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"
+                                    class="card-text">Passion and Commitment in everything we do</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- text  -->
+    <div
+        style="text-align: center;font-style: inherit;font-weight: bold;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        <h5 style="color: maroon;">Credentials & Partnerships</h5>
+        <h2>Awards and Certifications</h2>
+    </div>
+
+    <!-- five components  -->
+    <div class="container my-5" style="display: flex;">
+        <div>
+            <img src="https://www.tech2globe.com/images/new-page-image/awards.webp" class="img-fluid" alt="...">
+        </div>
+        <div>
+            <div data-aos="fade-up">
+                <div class="row mt-5 d-flex justify-content-between" style="gap: 10px;">
+                    <div class="col-md-2">
+                        <div style="width: 10rem;">
+                            <img src="https://www.tech2globe.com/images/awards/iso.webp"
+                                class="card-img-top image-style" alt="..." height="90px">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div style="width: 10rem;">
+                            <img src="https://www.tech2globe.com/images/awards/flipkart.webp"
+                                class="card-img-top image-style" alt="..." height="90px">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div style="width: 10rem;">
+                            <img src="https://www.tech2globe.com/images/awards/amazon_spn_logo.webp"
+                                class="card-img-top image-style" alt="..." height="90px">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div style="width: 10rem;">
+                            <img src="https://www.tech2globe.com/images/awards/google.webp"
+                                class="card-img-top image-style" alt="..." height="90px">
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+            <div data-aos="fade-up">
+                <div class="row d-flex justify-content-between my-5">
+                    <div class="col-md-2">
+                        <div style="width: 10rem;">
+                            <img src="https://www.tech2globe.com/images/awards/OIP.webp"
+                                class="card-img-top image-style" alt="..." height="90px">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div style="width: 10rem;">
+                            <img src="https://www.tech2globe.com/images/awards/Payoneer-Log.webp"
+                                class="card-img-top image-style" alt="..." height="90px">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div style="width: 10rem;">
+                            <img src="https://www.tech2globe.com/images/awards/shopify.webp"
+                                class="card-img-top image-style" alt="..." height="90px">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div style="width: 10rem;">
+                            <img src="https://www.tech2globe.com/images/awards/certificate.webp"
+                                class="card-img-top image-style" alt="..." height="90px">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div style="width: 10rem;">
+                            <img src="https://www.tech2globe.com/images/awards/ebay.webp"
+                                class="card-img-top image-style" alt="..." height="90px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="bg2 col-md-10">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- text  -->
+    <div
+        style="text-align: center;font-style: inherit;font-weight: bold;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        <h5 style="color: maroon;">Our Client</h5>
+        <h2>Partnered with Clients Worldwide</h2>
+        <h6>Over the years, Tech2Globe has served these clients building the prominence of its services and trust.</h6>
+    </div>
+
+    <!-- six components  -->
+
+    <div class="container mt-4">
+        <div data-aos="fade-up">
+            <div class="row my-2">
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/amazon-usa.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/aquatech.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/bluebird.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/cantabil.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/creative-arcades.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/deliveryhero.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-aos="fade-up">
+            <div class="row my-2">
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/ecommerce-guru.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/epos.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/follett.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/foodora.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/frontier.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/getkart.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-aos="fade-up">
+            <div class="row my-2">
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/hp.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/indiaSoft.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/instas.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/legend.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/nike.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/patanjali.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-aos="fade-up">
+            <div class="row my-2">
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/sales-warp.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/shikhar-group.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/snapdeal.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/sparsh-logo.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/sports.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/ss-medical.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-aos="fade-up">
+            <div class="row mt-2">
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/swiggy.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/unacademy.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/wow.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/wellist.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/wooden-street.webp"
+                            alt="Sample Image" class="image-style" height="90px">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width: 10rem;">
+                        <img src="https://www.tech2globe.com/images/new-page-image/logo/luiolui.webp" alt="Sample Image"
+                            class="image-style" height="90px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- text  -->
+    <div
+        style="margin-top: 90px; text-align: center;font-style: inherit;font-weight: bold;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        <h2>Our Clients Get Results</h2>
+    </div>
+
+    <!-- seven components video  -->
+
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-md-3">
+                <div class="card" style="width: 16rem; height: 620px;">
+                    <iframe height="350" src="https://www.youtube.com/embed/R6NZXqNaUj0?si=q-89hS7oCnFISEql"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h6
+                        style="background-color: rgb(5, 5, 69);color: white; padding: 6px;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;text-align: center;">
+                        " Amazon Marketing Consultancy "</h6>
+                    <div class="card-body">
+                        <p class="card-text text-center"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            As the brand Fatash, we've had a great two-year experience with Tech2Globe
+                            India on Amazon. Their team is communicative, responsive, and professional, making them
+                            excellent partners.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card" style="width: 16rem; height: 620px;">
+                    <iframe height="350" src="https://www.youtube.com/embed/gSW1dFy56iU?si=fBvx5uJjN_BuxUBQ"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h6
+                        style="background-color: rgb(5, 5, 69);color: white; padding: 6px;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;text-align: center;">
+                        " Amazon Account Management "</h6>
+                    <div class="card-body">
+                        <p class="card-text text-center"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            Tech2Globe has boosted our sales and visibility through expert PPC ads and
+                            product listing management. Their strategic approach and proactive support are invaluable.
+                            We highly recommend them.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card" style="width: 16rem;height: 620px;">
+                    <iframe height="350" src="https://www.youtube.com/embed/CDI-QIfFhqM?si=2HZ4DFijeNOxQBvj"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h6
+                        style="background-color: rgb(5, 5, 69);color: white; padding: 6px;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;text-align: center;">
+                        " Strategic Account Management "</h6>
+                 
+                        <div class="card-body">
+                        <p class="card-text text-center"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            Tech2Globe expertly manages our Amazon account, including spending,
+                            budgeting, promotions, and listings. They are responsive and a valuable partner as we grow
+                            our e-commerce busines.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card" style="width: 16rem; height: 620px;">
+                    <iframe height="350" src="https://www.youtube.com/embed/XM7IYYVneOU?si=Aju-x_4hE0QAtNKS"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h6
+                        style="background-color: rgb(5, 5, 69);color: white; padding: 6px;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;text-align: center;">
+                        " Digital Marketing Services "</h6>
+                    <div class="card-body">
+                        <p class="card-text text-center"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            I had a highly successful collaboration with Tech2Globe, whose innovative
+                            strategies boosted our monthly orders from 20 to over 70 within 45 days.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- text  -->
+    <div
+        style="margin-left: 100px; margin-right: 100px; margin-top: 100px; text-align: center;font-style: inherit;font-weight: bold;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        <h5 style="color: maroon;">Case Studies</h5>
+        <h2>Experiences of Our Global Client</h2>
+        <h6>Here are our client’s success stories who joined hands with Tech2Globe and witnessed increased sales and
+            growth with overall operational proficiency and minimized errors.</h6>
+    </div>
+
+    <!-- Eight components  -->
+
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-md-3">
+                <div style="width: 16rem;">
+                    <img src="https://www.tech2globe.com/images/new-page-image/restaurant-menu-data-entry.webp"
+                        class="card-img-top" alt="...">
+                    <div class="card-body text-center mt-4"
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        <h5 class="card-title">Restaurant Menu Data Entry</h5>
+                        <p class="card-text mt-1">They wanted to outsource their restaurant menu data entry work for
+                            one....</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="width: 16rem;">
+                    <img src="https://www.tech2globe.com/images/new-page-image/mobile-app-development.webp"
+                        class="card-img-top" alt="...">
+                    <div class="card-body text-center mt-4"
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        <h5 class="card-title">Mobile APP Development</h5>
+                        <p class="card-text mt-1">Our client required a mobile solution to complement its social design
+                            service....</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="width: 16rem;">
+                    <img src="https://www.tech2globe.com/images/new-page-image/image-processing.webp"
+                        class="card-img-top" alt="...">
+                    <div class="card-body text-center mt-4"
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        <h5 class="card-title">Image Processing</h5>
+                        <p class="card-text mt-1">The image processing case study features a customer based in US owning
+                            a couple of studios....</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="width: 16rem;">
+                    <img src="https://www.tech2globe.com/images/new-page-image/digital-merketing.webp"
+                        class="card-img-top" alt="...">
+                    <div class="card-body text-center mt-4"
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        <h5 class="card-title">Digital Marketing</h5>
+                        <p class="card-text mt-1">The biggest challenge for us is – the business niche is complete new
+                            for us and first ....</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- text  -->
+    <div
+        style="margin-left: 100px; margin-right: 100px; margin-top: 60px; text-align: center;font-style: inherit;font-weight: bold;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        <h5 style="color: maroon;">Our Portfolio</h5>
+        <h2>Projects Success Highlighting The Efficiency of our Excellence</h2>
+        <h6>Tech2Globe has been consistently delivering a multitude of cost-effective, top-tier software solutions since
+            its inception. Furthermore, our expertise and experience goes across diverse industries and domains to
+            support every business possible. Our unwavering commitment to excellence has yielded a rich history of
+            high-quality accomplishments in business software development, e-commerce, retail, manufacturing, real
+            estate, consulting services, and more.</h6>
+    </div>
+
+    <!-- nine components  -->
+    <div class="bgComponents">
+        <div class="container">
+            <div class="row my-5">
+                <div class="col-md-6 mt-5 mb-5"
+                    style="background-color: gainsboro; border: 1px solid gainsboro; border-radius: 40px;">
+                    <h1
+                        style="text-align: center;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin-top: 50px;">
+                        Get in touch with us!</h1>
+                    <div class="d-flex justify-content-between " style="display: flex;margin-top: 50px;">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Your Name</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">Your Email</label>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between " style="display: flex;">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Country</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">Your Phone No.</label>
+                        </div>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                            style="height: 100px;width:100%;"></textarea>
+                        <label for="floatingTextarea2">Enter your Query</label>
+                    </div>
+                    <button type="button" class="btn btn-danger mt-3"
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; width: 100%; margin-bottom: 40px;">Submit</button>
+                </div>
+                <div class="col-md-6 text-light"
+                    style="text-align: center; margin-top: 190px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <h6>We offer industry solutions that add value to your business.</h6>
+                    <h1>Looking for IT solutions that can make a transfor-mative difference? </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ten components  -->
+
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-md-3">
+                <div style="width: 18rem;">
+                    <img src="https://www.tech2globe.com/images/new-page-images/svgs/united-state-flag-icon.svg"
+                        class="card-img-top" height="30px" alt="...">
+                    <div class="card-body text-center">
+                        <p class="card-text"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            1538, Old Country Road, Plainview, New York, 11803</p>
+                        <p class="card-text mt-5"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            Phone No.: +1-516-858-5840</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="width: 18rem;">
+                    <img src="https://www.tech2globe.com/images/new-page-images/svgs/canada-flag-icon.svg"
+                        class="card-img-top" height="30px" alt="...">
+                    <div class="card-body text-center">
+                        <p class="card-text"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            975 Mid-Way Blvd UNIT 12, Mississauga, ON L5T 2C6, Canada</p>
+                        <p class="card-text mt-4"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            Phone No.: +1-516-858-4836</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="width: 18rem;">
+                    <img src="https://www.tech2globe.com/images/new-page-images/svgs/canada-flag-icon.svg"
+                        class="card-img-top" height="30px" alt="...">
+                    <div class="card-body text-center">
+                        <p class="card-text"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            3836 Keeha Dr Port Alberni, BC, V9Y8C8, Canada</p>
+                        <p class="card-text mt-5"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            Phone No.: +1-778-382-9628</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="width: 18rem;">
+                    <img src="https://www.tech2globe.com/images/new-page-images/svgs/bharat-flag-icon.svg"
+                        class="card-img-top" height="30px" alt="...">
+                    <div class="card-body text-center">
+                        <p class="card-text"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            606, 6th Floor, Pearls Omaxe Tower-1, Netaji Subhash Place</p>
+                        <p class="card-text mt-5"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            Phone No.: +91-9899675039</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- fotter  -->
+
+    <footer>
+        <div class="footer-container">
+            <div class="row">
+                <div class="col-md-2"
+                    style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <h4>Our Policies</h4>
+                    <p class="hov1 mt-5">Home</p>
+                    <p class="hov1">Terms & Conditions</p>
+                    <p class="hov1">Privacy Policy</p>
+                    <p class="hov1">Cookies</p>
+                    <p class="hov1">Site Map</p>
+                </div>
+                <div class="col-md-2"
+                    style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <h4>More Info</h4>
+                    <p class="hov1 mt-5">About Tech2Globe</p>
+                    <p class="hov1">Infrastructure</p>
+                    <p class="hov1">Values</p>
+                    <p class="hov1">Associations</p>
+                    <p class="hov1">Clients</p>
+                    <p class="hov1">Our Team</p>
+                    <p class="hov1">Life at Tech2globe</p>
+                </div>
+                <div class="col-md-2"
+                    style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <h4>Support</h4>
+                    <p class="hov1 mt-5"> Contact Us</p>
+                    <p class="hov1"> 24*7 Support</p>
+                    <p class="hov1">FAQ</p>
+                    <img class="shadow" style="border: 1px solid white; padding: 15px;"
+                        src="https://www.tech2globe.com/images/we-are-hiring.png" alt="" height="70px">
+                </div>
+                <div class="col-md-6"
+                    style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <h4>Subscribe</h4>
+                    <div class="input-container mt-5">
+                        <input type="text" placeholder="Email Address" class="message-input">
+                        <button class="send-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="send-icon">
+                                <path d="M1.5,12,23,1,18,12l5,11L1.5,12Z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <h4 class="mt-5"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            Follow Us</h4>
+                        <div class="mt-4">
+                            <a style="text-decoration: none;" href="https://www.facebook.com" target="_blank">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a style="text-decoration: none;" href="https://www.linkedin.com" target="_blank">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a style="text-decoration: none;" href="https://www.instagram.com" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a style="text-decoration: none;" href="https://www.youtube.com" target="_blank">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a style="text-decoration: none;" href="https://www.twitter.com" target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-4" style="justify-content: space-between;">
+                        <img class="shadow" style="border: 1px solid white; padding: 15px;"
+                            src="https://www.tech2globe.com/images/awards/new-badge.png" alt="" height="100px">
+
+                        <img class="shadow" style="border: 1px solid white; padding: 15px;"
+                            src="https://www.tech2globe.com/images/esc-t2g-footer-logo.png" alt="" height="100px">
+
+                        <img class="shadow" style="border: 1px solid white; padding: 15px;"
+                            src="https://www.tech2globe.com/images/ecommerce-development-companies.svg" alt=""
+                            height="100px">
+
+                        <!-- <img class="shadow" style="border: 1px solid white; padding: 15px;"
+                            src="https://www.tech2globe.com/images/awards/chamber-logo.png" alt="" height="100px"> -->
+
+                        <img class="shadow" style="border: 1px solid white; padding: 15px;"
+                            src="https://www.tech2globe.com/images/awards/Nanaimo-Chamber-Certificate.jpg" alt=""
+                            height="100px">
+                    </div>
+                </div>
+                <hr>
+                <h6 class="mt-2" style="text-align: center;">© Copyright 2024 | All Rights Reserved by Tech2Globe</h6>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+<script>
+    AOS.init();
+</script>
